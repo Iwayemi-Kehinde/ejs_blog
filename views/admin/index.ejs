@@ -1,24 +1,30 @@
 <h3>SIGN IN</h3>
 
-<form action="/admin" method="post">
+<form action="/admin/login" method="post">
   <label for="username"><b>Username</b></label>
-  <input type="text" placeholder="username..." name="username">
+  <input type="text" placeholder="username..." name="username" />
 
   <label for="password"><b>Password</b></label>
-  <input type="password" name="password" placeholder="password...">
+  <input type="password" name="password" placeholder="password..." />
 
-  <input type="submit" value="Login" class="btn">
+  <input type="submit" value="Login" class="btn" />
 </form>
-
 
 <h3>REGISTER</h3>
 
-<form action="/register" method="post">
+<form action="/admin/register" method="post">
   <label for="username"><b>Username</b></label>
-  <input type="text" placeholder="username..." name="username">
+  <input type="text" placeholder="username..." name="username" />
 
   <label for="password"><b>Password</b></label>
-  <input type="password" name="password" placeholder="password...">
+  <input type="password" name="password" placeholder="password..." />
 
-  <input type="submit" value="Register" class="btn">
+  <input type="submit" value="Register" class="btn" />
+
+
+
+  <% if (errors && errors.length > 0) { %> <%
+  errors.forEach((error) => { %>
+  <div><%= error %></div>
+  <% }); %> <% } %>
 </form>

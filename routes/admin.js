@@ -21,12 +21,12 @@ const authMiddleWare = (req, res, next) => {
     console.log(error.message());
   }
 };
-router.get("/admin", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const locals = {
       title: "Admin",
     };
-    res.render("admin/index", { locals, layout: adminLayout });
+    res.render("index", { locals, layout: adminLayout });
   } catch (error) {}
 });
 
@@ -44,7 +44,7 @@ router.get("/dashboard", authMiddleWare, async (req, res) => {
 router.get("/unauthorized", (req, res) => {
   res.render("admin/unauthorized");
 });
-router.post("/admin", async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
@@ -78,11 +78,11 @@ router.post("/register", async (req, res) => {
     }
 
     if (errors.length > 0) {
-      return res.render("admin/index", {errors})
+      return res.render("admin/index", { errors: errors, layout: adminLayout });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ username, password: hashedPassword });
-    jwt.sign({ user: user._id }, process.env.jwt, (error, token) => {
+    jwt.sign({ user: user._id }, process.env.JWT_SECRET, (error, token) => {
       if (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal server error" });
