@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="<%= locals.description %>">
-  <title><%= locals.title %></title>
-  <link rel="stylesheet" href="/css/style.css">
-  <script type="text/javascript" defer src="/js/script.js"></script>
-</head>
-<body>
-  <%- include('../partials/search.ejs') %>
-  <div class="container">
-    <%- include('../partials/header.ejs') %>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <title><%= locals.title %></title>
+    <link rel="stylesheet" href="/css/general.css" />
+  </head>
+  <body>
     <main class="main">
+      <%- include('../partials/navbar') %>
       <%- body %>
     </main>
-    <%- include('../partials/footer.ejs') %>
-  </div>
-</body>
+  </body>
 </html>

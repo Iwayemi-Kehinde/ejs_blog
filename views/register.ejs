@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= locals.title %></title>
+  </head>
+  <body>
+    <a href="/" class="logo">
+      <span>LOGO</span>
+    </a>
+    <div class="center">
+      <h2 class="heading">Create a new account</h2>
+      <div class="container">
+        <form action="/users/register">
+          <div class="input">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="username" />
+          </div>
+
+          <div class="input">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="email" />
+          </div>
+
+          <div class="input">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="password" />
+          </div>
+
+          <div class="flex">
+            <div>
+              already have an account? 
+              <a href="/users/login">login</a>
+            </div>
+            <div>
+              <span>remember me</span>
+              <input type="checkbox" name="remember">
+            </div>
+          </div>
+
+          <div style="display: block; margin-top: 20px">
+            <input type="submit" value="Register" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
