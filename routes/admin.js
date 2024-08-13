@@ -145,6 +145,9 @@
 
 
 const express = require("express")
+const jwt = require("jsonwebtoken")
+const user = require("../models/User.js")
+const bcrypt = require("bcrypt")
 const router = express.Router()
 
 
@@ -162,6 +165,42 @@ router.get("/register", (req, res) => {
     title: "Register"
   }
   res.render("register", { locals, layout: "../views/layout/admin" })
+})
+
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body
+  const errors = []
+  if (!email || !password) {
+    errors.push("Fill all fields")
+  } 
+  if (password && password.length < 6) {
+    errors.push("The password must be a minimum of 6 characters")
+  }
+  if (errors.length > 0) {
+    req.flash('error_msg', errors);
+    return res.redirect('/users/login');
+  }
+  try {
+    const User = await user.findOne({ email })
+    if (!User) {
+      req.flash('success_msg', 'Account doesn\'t exist.');
+      return res.redirect('/users/login');
+    }
+    const hashedPassword = await bcrypt.compare(password, User.password)
+    if (!hashedPassword) {
+      req.flash('error_msg', 'Password incorrect.');
+      return res.redirect('/users/login');
+    }
+    const token = jwt.sign({ userId: User._id }, process.env.JWT_SECRET, {expiresIn:"1h"})
+    res.cookie("token", token, {httpOnly: true, secure: process.env.NODE_ENV === "production"})
+    req.flash('success_msg', 'You are now logged in');
+    res.redirect("/")
+  } catch (error) {
+    console.error({ error })
+    req.flash('error_msg', 'Internal server error.');
+    res.status(500).json({ "message": "internal server error" })
+    return res.redirect("/users/login")
+  }
 })
 
 module.exports = router

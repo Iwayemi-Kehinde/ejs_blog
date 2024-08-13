@@ -1,42 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= locals.title %></title>
-  </head>
-  <body>
-    <a href="/" class="logo">
-      <span>LOGO</span>
-    </a>
-    <div class="center">
-      <h2 class="heading">LOGIN</h2>
-      <div class="container">
-        <form action="/users/login">
-          <div class="input">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="email" />
-          </div>
 
-          <div class="input">
-            <label>Password</label>
-            <input type="password" name="password" placeholder="password" />
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    <%= locals.title %>
+  </title>
+</head>
 
-          <div class="flex">
-            <div>
-               Just got in?
-              <a href="/users/register">register</a>
-            </div>
-            <div>Forgot password?</div>
-          </div>
+<body>
+  <a href="/" class="logo">
+    <span>LOGO</span>
+  </a>
+  <div class="center">
+    <h2 class="heading">LOGIN</h2>
+    <div class="container">
+      <form action="/users/login" method="POST">
+        <div class="input">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="email" />
+        </div>
 
-          <div style="display: block; margin-top: 20px">
-            <input type="submit" value="Login" />
+        <div class="input">
+          <label>Password</label>
+          <input type="password" name="password" placeholder="password" />
+        </div>
+
+        <div class="flex">
+          <div>
+            Just got in?
+            <a href="/users/register">register</a>
           </div>
-        </form>
-      </div>
+          <div>Forgot password?</div>
+        </div>
+
+        <div style="display: block; margin-top: 20px">
+          <input type="submit" value="Login" />
+        </div>
+      </form>
     </div>
-  </body>
+  </div>
+  <% if (error_msg && error_msg.length> 0) { %>
+    <div class="alert alert-danger" id="error">
+      <div>
+        <% error_msg.forEach(function(msg) { %>
+          <p>
+            <%= msg %>
+          </p>
+          <% }); %>
+      </div>
+      <button class="close" onclick="this.parentElement.style.display='none'">&times;</button>
+    </div>
+    <% } %>
+
+
+      <% if (success_msg.length> 0) { %>
+        <div class="alert alert-success" id="success">
+          <div>
+            <% success_msg.forEach(function(msg) { %>
+              <p>
+                <%= msg %>
+              </p>
+              <% }); %>
+          </div>
+          <button class="close" onclick="this.parentElement.style.display='none'">&times;</button>
+        </div>
+        <% } %>
+</body>
+<script>
+  const success_element = document.getElementById("success")
+  if(success_element) {
+    setTimeout(() => {
+      success_element.remove()
+    }, 5000);
+  }
+
+  const error_element = document.getElementById("error")
+  if(error_element) {
+    setTimeout(() => {
+      error.remove()
+    }, 5000);
+  }
+</script>
+
 </html>
