@@ -81,7 +81,9 @@ router.post("/register", async (req, res) => {
     const newUser = await user.create({username, email, password: hashedPassword})
     const token = jwt.sign({userId: newUser._id}, process.env.JWT_SECRET, {expiresIn: "1h"})
     res.cookie("token", token, {secure: process.env.NODE_ENV === "production", httpOnly: true})
+    req.flash("success_msg", "Welcome back")
     return res.redirect("/")
+
   } catch(error) {
     console.log({error})
     res.redirect("/users/register")
