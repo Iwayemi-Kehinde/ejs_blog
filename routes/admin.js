@@ -48,9 +48,9 @@ router.post("/login", async (req, res) => {
       return res.redirect('/users/login');
     }
     const token = jwt.sign({ userId: User._id }, process.env.JWT_SECRET, {expiresIn:"1h"})
-    res.cookie("token", token, {httpOnly: true, secure: process.env.NODE_ENV === "production"})
     req.flash('success_msg', 'You are now logged in');
-    res.redirect("/")
+    res.cookie("token", token, {httpOnly: true, secure: process.env.NODE_ENV === "production"})
+    return res.redirect("/")
   } catch (error) {
     console.error({ error })
     req.flash('error_msg', 'Internal server error.');
@@ -88,17 +88,29 @@ router.post("/register", async (req, res) => {
   } catch(error) {
     console.log({error})
     req.flash("error_msg", "Internal server error")
-    res.redirect("/users/register")
+    return res.redirect("/users/register")
     // return res.status(500).json({"message":"internal server error"})
   }
 })
 
-router.get("/profile",authMiddleWare,isAuth,(req, res) => {
-  const locals = {
-    title: "Profile page",
-    isAuthenticated: res.locals.isAuthenticated
+router.get("/profile",authMiddleWare,isAuth,async (req, res) => {
+  try {
+    const User = await user.findById(req.userId); 
+    if (!User) {
+      req.flash('error_msg', 'User not found');
+      return res.redirect('/users/login');
+    }
+    const locals = {
+      title: "Profile page",
+      isAuthenticated: res.locals.isAuthenticated,
+      User
+    }
+    res.render("profile", {layout: "../views/layout/profileLayout", locals})
+  } catch(error) {
+    console.error(error);
+    req.flash('error_msg', 'Something went wrong');
+    res.redirect('/users/login');
   }
-  res.render("profile", {layout: "../views/layout/profileLayout", locals})
 })
 
 router.get("/logout", (req, res) => {

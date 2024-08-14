@@ -5,7 +5,7 @@ const authenticateToken = (req, res, next) => {
   if (token == null) return res.redirect('/users/login'); 
   jwt.verify(token, process.env.JWT_SECRET, async (err, userId) => {
     if (err) return res.redirect('/users/login'); 
-    req.userId = userId;
+    req.userId = userId.userId;
     next();
   });
 };

@@ -1,13 +1,13 @@
 <div class="profile-container">
   <div class="profile-header">
-    <h1>Welcome, <%= "Kehinde" %>!</h1>
+    <h1>Welcome, <%= locals.User.username %>!</h1>
   </div>
   <div class="profile-details">
     <p><strong>Email:</strong>
-      <%= "Iwayemikehinde1@gmail.com" %>
+      <%= locals.User.email %>
     </p>
     <p><strong>Joined on:</strong>
-      <%= "Today" %>
+      Today
     </p>
   </div>
   <div class="profile-actions">
