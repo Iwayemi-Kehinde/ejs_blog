@@ -1,10 +1,13 @@
 const express = require("express")
 const router = express.Router()
+const isAuth = require("../middlewares/partialsMiddleware.js")
 
-router.get("/", (req, res) => {
+router.get("/", isAuth, (req, res) => {
   const locals = {
-    title: "Home"
+    title: "Home",
+    isAuthenticated: res.locals.isAuthenticated
   }
+  console.log(locals)
   res.render("home", {layout: "../views/layout/main", locals})
 })
 

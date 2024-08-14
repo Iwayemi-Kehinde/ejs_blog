@@ -2,6 +2,7 @@ const express = require("express")
 const jwt = require("jsonwebtoken")
 const user = require("../models/User.js")
 const authMiddleWare = require("../middlewares/authMiddleware.js")
+const isAuth = require("../middlewares/partialsMiddleware.js")
 const bcrypt = require("bcrypt")
 const router = express.Router()
 
@@ -53,7 +54,6 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     console.error({ error })
     req.flash('error_msg', 'Internal server error.');
-    res.status(500).json({ "message": "internal server error" })
     return res.redirect("/users/login")
   }
 })
@@ -93,11 +93,20 @@ router.post("/register", async (req, res) => {
   }
 })
 
-router.get("/profile",authMiddleWare,(req, res) => {
+router.get("/profile",authMiddleWare,isAuth,(req, res) => {
   const locals = {
-    title: "Profile page"
+    title: "Profile page",
+    isAuthenticated: res.locals.isAuthenticated
   }
   res.render("profile", {layout: "../views/layout/profileLayout", locals})
 })
+
+router.get("/logout", (req, res) => {
+  res.clearCookie("token")
+  req.flash("success_msg", "You are now logged out")
+  res.redirect("/")
+})
+
+
 
 module.exports = router
