@@ -1,6 +1,7 @@
 const express = require("express")
 const jwt = require("jsonwebtoken")
 const user = require("../models/User.js")
+const authMiddleWare = require("../middlewares/authMiddleware.js")
 const bcrypt = require("bcrypt")
 const router = express.Router()
 
@@ -86,9 +87,17 @@ router.post("/register", async (req, res) => {
 
   } catch(error) {
     console.log({error})
+    req.flash("error_msg", "Internal server error")
     res.redirect("/users/register")
-    return res.status(500).json({"message":"internal server error"})
+    // return res.status(500).json({"message":"internal server error"})
   }
+})
+
+router.get("/profile",authMiddleWare,(req, res) => {
+  const locals = {
+    title: "Profile page"
+  }
+  res.render("profile", {layout: "../views/layout/profileLayout", locals})
 })
 
 module.exports = router

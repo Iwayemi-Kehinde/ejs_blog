@@ -1,0 +1,66 @@
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.profile-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.profile-header h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.profile-details {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.profile-details p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  background-color: #3498db;
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #2980b9;
+}
+
+.btn-logout {
+  background-color: #e74c3c;
+}
+
+.btn-logout:hover {
+  background-color: #c0392b;
+}
