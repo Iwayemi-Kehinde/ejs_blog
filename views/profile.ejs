@@ -12,6 +12,43 @@
   </div>
   <div class="profile-actions">
     <a href="/edit-profile" class="btn">Edit Profile</a>
-    <a href="/users/logout" class="btn btn-logout">Logout</a>
+    <button id="openModalBtn" class="btn btn-logout">Logout</button>
+  </div>
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h2>Are you sure you want to logout</h2>
+      <div class="option">
+        <a href="/users/logout"
+          style="margin-right: 10px; background: rgb(172, 0, 0); color: white;padding: 6px; border-radius: 4px;">Yes</a>
+        <button
+          style="cursor:pointer; border:none;background-color: rgb(9, 138, 30); color: white;padding: 6px; border-radius: 4px;"
+          id="closeModalBtn">No</button>
+      </div>
+    </div>
   </div>
 </div>
+
+<script>
+
+  document.getElementById('openModalBtn').onclick = function () {
+    const modal = document.getElementById('modal');
+    modal.style.display = 'flex';
+    setTimeout(() => {
+      modal.classList.add('show');
+    }, 10);
+  };
+
+  document.getElementById('closeModalBtn').onclick = function () {
+    const modal = document.getElementById('modal');
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 400);
+  };
+
+
+  modal.classList.remove('show');
+  modal.style.display = 'none';
+
+
+</script>

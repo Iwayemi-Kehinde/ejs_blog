@@ -4,6 +4,7 @@
   box-sizing: border-box;
   text-decoration: none;
   font-family: yasebeau infant;
+  font-size: 16px;
 }
 
 .navbar {
@@ -25,6 +26,10 @@
 ul .first-section li{
   display: inline-block;
   padding: 6px 14px;
+}
+
+a{
+  color: black
 }
 
 
