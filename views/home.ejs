@@ -1,1 +1,24 @@
 <%- include('./partials/navbar') %>
+
+  <main>
+    <div class="post-list">
+      <% posts.forEach(post=> { %>
+        <div class="post-preview">
+          <img src="<%= post.coverImage %>" alt="<%= post.title %>" class="post-thumbnail">
+          <h2><a href="/post/<%= post._id %>">
+              <%= post.title %>
+            </a></h2>
+          <p class="post-author">By <%= post.author.name %> | <%= new Date(post.createdAt).toLocaleDateString() %>
+          </p>
+          <p class="post-excerpt">
+            <%= post.content.substring(0, 150) %>...
+          </p>
+          <a href="/post/<%= post._id %>" class="read-more">Read More</a>
+        </div>
+        <% }) %>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> MyBlog. All rights reserved.</p>
+  </footer>

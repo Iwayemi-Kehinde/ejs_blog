@@ -35,6 +35,7 @@ app.set("view engine", "ejs")
 app.use(express.static("public"))
 app.use("/users", require("./routes/admin"))
 app.use("/", require("./routes/main"))
+app.use("/post", require("./routes/blog.js"))
 
 
 app.listen(PORT, () => {

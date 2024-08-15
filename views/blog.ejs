@@ -1,0 +1,52 @@
+<main>
+  <div class="post-container">
+    <img src="<%= locals.post.coverImage %>" alt="<%= locals.post.title %>" class="cover-image">
+    <h1 class="post-title">
+      <%= locals.post.title %>
+    </h1>
+    <p class="post-author">By <%= locals.post.author.name %> | <%= new Date(locals.post.createdAt).toLocaleDateString() %>
+    </p>
+    <div class="post-content">
+      <%= locals.post.content %>
+    </div>
+
+    <div class="post-tags">
+      <h3>Tags:</h3>
+      <% locals.post.tags.forEach(tag=> { %>
+        <span class="tag">
+          <%= tag %>
+        </span>
+        <% }) %>
+    </div>
+
+    <div class="post-stats">
+      <span>
+        <%= locals.post.views %> views
+      </span> |
+      <span>
+        <%= locals.post.likes.length %> likes
+      </span>
+    </div>
+
+    <div class="comments-section">
+      <h3>Comments (<%= locals.post.comments.length %>)</h3>
+      <ul>
+        <% locals.post.comments.forEach(comment=> { %>
+          <li>
+            <strong>
+              <%= "Kehinde" %>:
+            </strong>
+            <%= locals.comment %>
+              <br><span class="comment-date">
+                <%= "Today" %>
+              </span>
+          </li>
+          <% }) %>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; <%= new Date().getFullYear() %> MyBlog. All rights reserved.</p>
+</footer>
