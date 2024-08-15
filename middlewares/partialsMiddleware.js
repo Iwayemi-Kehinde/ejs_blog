@@ -13,6 +13,7 @@ function checkAuthenticated(req, res, next) {
       }
 
       res.locals.isAuthenticated = true;
+      req.userID = decodedToken.userId
       return next(); 
     });
   } else {

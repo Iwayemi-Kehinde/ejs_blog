@@ -1,5 +1,4 @@
 <%- include('./partials/navbar') %>
-
   <main>
     <div class="post-list">
       <% posts.forEach(post=> { %>
@@ -8,7 +7,7 @@
           <h2><a href="/post/<%= post._id %>">
               <%= post.title %>
             </a></h2>
-          <p class="post-author">By <%= post.author.name %> | <%= new Date(post.createdAt).toLocaleDateString() %>
+          <p class="post-author">By <%= post.author.username %> | <%= new Date(post.createdAt).toLocaleDateString() %>
           </p>
           <p class="post-excerpt">
             <%= post.content.substring(0, 150) %>...
