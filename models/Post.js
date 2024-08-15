@@ -1,24 +1,53 @@
-import mongoose from "mongoose"
+const mongoose = require('mongoose');
 
-const PostSchema = new mongoose.Schema({
+const blogSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    trim: true,
   },
-  body: {
+  content: {
     type: String,
     required: true
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  }
-})
+  tags: [{
+    type: String,
+    trim: true
+  }],
+  category: {
+    type: String,
+    required: true,
+    enum: ['Technology', 'Health', 'Lifestyle', 'Education', 'Business'], 
+    default: 'Technology'
+  },
+  coverImage: {
+    type: String, 
+    default: ''
+  },
+  isPublished: {
+    type: Boolean,
+    default: false
+  },
+  views: {
+    type: Number,
+    default: 0
+  },
+  likes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User' // References users who liked the post
+  }],
+  comments: [{
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    comment: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now }
+  }]
+}, {
+  timestamps: true 
+});
 
-const Post = mongoose.model("Posts", PostSchema)
-
-export {Post}
+module.exports = mongoose.model('Blog', blogSchema);
