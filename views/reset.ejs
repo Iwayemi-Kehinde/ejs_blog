@@ -1,0 +1,8 @@
+<h2>Reset Your Password</h2>
+<form action="/users/reset/<%= token %>" method="POST">
+  <label for="password">New Password:</label>
+  <input type="password" name="password" required>
+  <label for="confirm">Confirm New Password:</label>
+  <input type="password" name="confirm" required>
+  <button type="submit">Update Password</button>
+</form>

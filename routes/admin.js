@@ -5,8 +5,7 @@ const authMiddleWare = require("../middlewares/authMiddleware.js")
 const isAuth = require("../middlewares/partialsMiddleware.js")
 const bcrypt = require("bcrypt")
 const router = express.Router()
-const nodemailer = require('nodemailer'); 
-const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 
 
@@ -15,10 +14,6 @@ router.get("/login", (req, res) => {
     title: "Login"
   }
   res.render("login", { locals, layout: "../views/layout/admin" })
-})
-
-router.get("/forgot", (req, res) => {
-  res.render("forgot")
 })
 
 
@@ -34,7 +29,7 @@ router.post("/login", async (req, res) => {
   const errors = []
   if (!email || !password) {
     errors.push("Fill all fields")
-  } 
+  }
   if (password && password.length < 6) {
     errors.push("The password must be a minimum of 6 characters")
   }
@@ -53,9 +48,9 @@ router.post("/login", async (req, res) => {
       req.flash('error_msg', 'Password incorrect.');
       return res.redirect('/users/login');
     }
-    const token = jwt.sign({ userId: User._id }, process.env.JWT_SECRET, {expiresIn:"1h"})
+    const token = jwt.sign({ userId: User._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
     req.flash('success_msg', 'You are now logged in');
-    res.cookie("token", token, {httpOnly: true, secure: process.env.NODE_ENV === "production"})
+    res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === "production" })
     return res.redirect("/")
   } catch (error) {
     console.error({ error })
@@ -66,42 +61,42 @@ router.post("/login", async (req, res) => {
 
 
 router.post("/register", async (req, res) => {
-  const {username, email,password} = req.body
+  const { username, email, password } = req.body
   const errors = []
-  if(!username || !email || !password) {
+  if (!username || !email || !password) {
     errors.push("Fill all fields")
   }
-  if(password && password.length < 6) {
+  if (password && password.length < 6) {
     errors.push("The password must be a minimum of 6 characters")
   }
-  if(errors.length > 0) {
+  if (errors.length > 0) {
     req.flash("error_msg", errors)
     return res.redirect("/users/register")
   }
   try {
-    const UserExists = await user.findOne({email})
-    if(UserExists) {
+    const UserExists = await user.findOne({ email })
+    if (UserExists) {
       req.flash("error_msg", "Account already exist")
       return res.redirect("/users/register")
     }
     const hashedPassword = await bcrypt.hash(password, 10)
-    const newUser = await user.create({username, email, password: hashedPassword})
-    const token = jwt.sign({userId: newUser._id}, process.env.JWT_SECRET, {expiresIn: "1h"})
-    res.cookie("token", token, {secure: process.env.NODE_ENV === "production", httpOnly: true})
+    const newUser = await user.create({ username, email, password: hashedPassword })
+    const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
+    res.cookie("token", token, { secure: process.env.NODE_ENV === "production", httpOnly: true })
     req.flash("success_msg", "Welcome back")
     return res.redirect("/")
 
-  } catch(error) {
-    console.log({error})
+  } catch (error) {
+    console.log({ error })
     req.flash("error_msg", "Internal server error")
     return res.redirect("/users/register")
     // return res.status(500).json({"message":"internal server error"})
   }
 })
 
-router.get("/profile",authMiddleWare,isAuth,async (req, res) => {
+router.get("/profile", authMiddleWare, isAuth, async (req, res) => {
   try {
-    const User = await user.findById(req.userId); 
+    const User = await user.findById(req.userId);
     if (!User) {
       req.flash('error_msg', 'User not found');
       return res.redirect('/users/login');
@@ -111,8 +106,8 @@ router.get("/profile",authMiddleWare,isAuth,async (req, res) => {
       isAuthenticated: res.locals.isAuthenticated,
       User
     }
-    res.render("profile", {layout: "../views/layout/profileLayout", locals})
-  } catch(error) {
+    res.render("profile", { layout: "../views/layout/profileLayout", locals })
+  } catch (error) {
     console.error(error);
     req.flash('error_msg', 'Something went wrong');
     res.redirect('/users/login');
@@ -125,6 +120,105 @@ router.get("/logout", (req, res) => {
   res.redirect("/")
 })
 
+router.get("/forgot", (req, res) => {
+  const locals = {
+    title: "Forgot password"
+  }
+  res.render("forgot", { locals, layout: "../views/layout/admin" })
+})
+
+router.post("/forgot", async (req, res) => {
+  try {
+    const { email } = req.body
+    const User = await user.findOne({ email })
+    if (!User) {
+      req.flash("error_msg", "Email not found")
+      return res.redirect("/users/forgot")
+    }
+    user.generatePasswordReset()
+    await User.save()
+    const resetLink = `http://${req.headers.host}/reset/${user.resetPasswordToken}`
+
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: 'iwayemikehinde1@gmail.com',
+        pass: 'your-email-password'
+      }
+    });
+
+    const mailOptions = {
+      to: user.email,
+      from: 'iwayemikehinde1@gmail.com',
+      subject: 'Password Reset',
+      text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.
+             Please click on the following link, or paste this into your browser to complete the process:
+             ${resetLink}
+             If you did not request this, please ignore this email and your password will remain unchanged.`
+    };
+
+    await transporter.sendMail(mailOptions);
+    req.flash('success_msg', 'An email has been sent to ' + user.email + ' with further instructions.');
+    res.redirect('/users/forgot');
+  } catch (error) {
+    console.error({ error })
+    req.flash("error_msg", "An error occured")
+    res.redirect("/users/forgot")
+  }
+})
+
+router.get("/reset/:token", async (req, res) => {
+  try {
+    const User = await user.findOne({   
+      resetPasswordToken: req.params.token,
+      resetPasswordExpires: {$gt: Date.now()}
+    }) 
+    if (!User) {
+      req.flash('error', 'Password reset token is invalid or has expired.');
+      return res.redirect('/users/forgot');
+    }
+    res.render('reset', { token: req.params.token });
+  } catch(error) {
+    console.error({error})
+    res.redirect("/users/forgot")
+  }
+ 
+})
+
+router.post('/reset/:token', async (req, res) => {
+  try {
+    const user = await user.findOne({
+      resetPasswordToken: req.params.token,
+      resetPasswordExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      req.flash('error', 'Password reset token is invalid or has expired.');
+      return res.redirect('/users/forgot');
+    }
+
+    if (req.body.password === req.body.confirm) {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      user.password = hashedPassword;
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpires = undefined;
+      await user.save();
+
+      req.flash('success_msg', 'Your password has been updated.');
+      res.redirect('/users/login');
+    } else {
+      req.flash('error_msg', 'Passwords do not match.');
+      res.redirect(`/users/reset/${req.params.token}`);
+    }
+  } catch (error) {
+    console.error(error);
+    res.redirect('/users/forgot');
+  }
+});
+
+
 
 
 module.exports = router
+
+
