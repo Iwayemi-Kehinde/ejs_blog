@@ -26,8 +26,27 @@
                       d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                   </svg>
                 </span>
-              </p>
+
+              <div id="searchModal" class="modal-transparent">
+                <div class="modal-content">
+                  <span class="close" id="close">&times;</span>
+                  <h2>Search</h2>
+                  <input type="text" placeholder="Type to search...">
+                </div>
+              </div>
+            </p>
       </div>
     </ul>
   </div>
 </div>
+
+<script>
+  const searchButton = document.getElementById("openSearchModel")
+  const close = document.getElementById("close")
+  close.addEventListener("click", () => {
+    document.getElementById("searchModal").style.display = "none"
+  })
+  searchButton.addEventListener("click", () => {
+    document.getElementById("searchModal").style.display = "block"
+  })
+</script>
