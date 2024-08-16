@@ -1,9 +1,10 @@
-<main>
+<%-include("./partials/navbar.ejs")%>
+<div class="l">
   <div class="post-container">
-    <img src="<%= locals.post.coverImage %>" alt="<%= locals.post.title %>" class="cover-image">
-    <h1 class="post-title">
+    <h1 class="post-title bungee-tint-regular">
       <%= locals.post.title %>
     </h1>
+    <img src="<%= 'https://cdn.pixabay.com/photo/2024/01/29/22/47/ai-generated-8540915_640.jpg' %>" alt="<%= locals.post.title %>" class="cover-image">
     <p class="post-author">By <%= locals.post.author.name %> | <%= new Date(locals.post.createdAt).toLocaleDateString() %>
     </p>
     <div class="post-content">
@@ -45,7 +46,7 @@
       </ul>
     </div>
   </div>
-</main>
+</div>
 
 <footer>
   <p>&copy; <%= new Date().getFullYear() %> MyBlog. All rights reserved.</p>

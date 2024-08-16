@@ -10,6 +10,7 @@ router.get("/:id", partialMiddleware, async (req, res) => {
   const locals = {
     title: blogs.title,
     post: blogs,
+    isAuthenticated: res.locals.isAuthenticated,
   }
   res.render("blog", {layout: "../views/layout/main", locals})
 })

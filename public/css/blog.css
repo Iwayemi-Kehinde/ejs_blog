@@ -5,34 +5,35 @@
 }
 
 body {
-  background-color: #f5f5f5;
   color: #333;
-  line-height: 1.6;
 }
 
-main {
-  max-width: 800px;
+div.l {
   margin: 2rem auto;
   padding: 0 1rem;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
+  padding: 100px 2rem;
+  max-width: 900px;
 }
 
 .post-container {
   text-align: left;
 }
 
+
+
 .cover-image {
   width: 100%;
   height: auto;
   margin-bottom: 1rem;
+  border-radius: 3px;
 }
 
 .post-title {
-  font-size: 2rem;
+  font-family: "Bungee Tint", sans-serif;
+  font-size: 3rem;
   margin-bottom: 1rem;
   color: #333;
+  font-weight: 900;
 }
 
 .post-author {

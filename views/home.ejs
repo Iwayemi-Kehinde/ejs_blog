@@ -3,7 +3,7 @@
     <div class="post-list">
       <% posts.forEach(post=> { %>
         <div class="post-preview">
-          <img src="<%= post.coverImage %>" alt="<%= post.title %>" class="post-thumbnail">
+          <img src="<%='https://cdn.pixabay.com/photo/2024/01/29/22/47/ai-generated-8540915_640.jpg'%>" alt="<%= post.title %>" class="post-thumbnail">
           <h2><a href="/post/<%= post._id %>">
               <%= post.title %>
             </a></h2>
