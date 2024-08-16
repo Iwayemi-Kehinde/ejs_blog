@@ -5,6 +5,8 @@ const authMiddleWare = require("../middlewares/authMiddleware.js")
 const isAuth = require("../middlewares/partialsMiddleware.js")
 const bcrypt = require("bcrypt")
 const router = express.Router()
+const nodemailer = require('nodemailer'); 
+const crypto = require('crypto');
 
 
 
@@ -13,6 +15,10 @@ router.get("/login", (req, res) => {
     title: "Login"
   }
   res.render("login", { locals, layout: "../views/layout/admin" })
+})
+
+router.get("/forgot", (req, res) => {
+  res.render("forgot")
 })
 
 

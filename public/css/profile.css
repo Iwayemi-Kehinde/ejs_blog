@@ -100,3 +100,11 @@ main {
 .display{
   display: flex;
 }
+.btn-create {
+  background-color: darkviolet;
+}
+
+
+.btn-create:hover {
+  background-color: rgb(124, 16, 170);
+}
