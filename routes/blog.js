@@ -5,7 +5,6 @@ const router = express.Router()
 
 router.get("/:id", partialMiddleware, async (req, res) => {
   const { id } = req.params
-
   const blogs = await Blog.findById(id)
   const locals = {
     title: blogs.title,
@@ -15,8 +14,6 @@ router.get("/:id", partialMiddleware, async (req, res) => {
   res.render("blog", {layout: "./layout/main", locals})
 })
 
-router.get("/created", partialMiddleware, (req, res) => {
- res.json({"msg":"hello"})
-})
+
 
 module.exports = router

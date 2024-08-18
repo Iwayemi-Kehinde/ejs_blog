@@ -11,9 +11,8 @@ const blogSchema = new mongoose.Schema({
     required: true
   },
   author: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
-    required: true
   },
   tags: [{
     type: String,
@@ -52,10 +51,4 @@ const blogSchema = new mongoose.Schema({
 
 module.exports = mongoose.model('Blog', blogSchema);
 
-/**
- *  OTHER USER WILL COMMENT
- * 
- * 
- * 
- * 
- */
+

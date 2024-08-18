@@ -3,11 +3,11 @@
     <div class="post-list">
       <% posts.forEach(post=> { %>
         <div class="post-preview">
-          <img src="<%='https://cdn.pixabay.com/photo/2024/01/29/22/47/ai-generated-8540915_640.jpg'%>" alt="<%= post.title %>" class="post-thumbnail">
-          <h2><a href="/post/<%= post._id %>">
-              <%= post.title %>
-            </a></h2>
-          <p class="post-author">By <%= post.author.username %> | <%= new Date(post.createdAt).toLocaleDateString() %>
+          <img src="'../uploads/'<%=post.coverImage%>" alt="img" class="post-thumbnail">
+          <h2 style="background-color: red;">
+            <%= post.title %>
+          </h2>
+          <p class="post-author">By <%= "Kehinde" %> | <%= new Date(post.createdAt).toLocaleDateString() %>
           </p>
           <p class="post-excerpt">
             <%= post.content.substring(0, 150) %>...
