@@ -1,6 +1,16 @@
-<h2>Forgot Password</h2>
-<form action="/users/forgot" method="POST">
+<form id="form" action="/users/forgot" method="POST">
+  <h2 style="text-transform: uppercase; text-align: center; margin-bottom: 15px;">Forgot Password</h2>
   <label for="email">Enter your email address:</label>
   <input type="email" name="email" required>
-  <button type="submit">Reset Password</button>
+  <button type="submit" class="reset-btn">Reset Password</button>
 </form>
+
+
+<style>
+  body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+</style>

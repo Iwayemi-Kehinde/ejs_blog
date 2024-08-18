@@ -137,7 +137,6 @@ router.post("/forgot", async (req, res) => {
     }
     await User.save()
     const resetLink = `http://${req.headers.host}/reset/${User.resetPasswordToken}`
-
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {

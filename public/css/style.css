@@ -1,10 +1,11 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
   font-family: yasebeau infant;
 }
+
 .center {
   background-color: rgb(255, 255, 255);
   height: 65vh;
@@ -12,34 +13,37 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column ;
+  flex-direction: column;
 }
 
-a.logo{
-margin: 40px;
-display: inline-block;
+a.logo {
+  margin: 40px;
+  display: inline-block;
 }
 
-form{
-  box-shadow: 0px 6px 12px 5px rgba(0,0,0,0.4);
+form.form {
+  box-shadow: 0px 6px 12px 5px rgba(0, 0, 0, 0.4);
   width: 550px;
   min-height: 320px;
   border-radius: 10px;
   padding: 30px;
 }
+
 .heading {
   margin-bottom: 35px;
   text-align: center;
   font-size: 35px;
 }
 
-label{
+label {
   display: block;
   font-size: 17px;
   margin-bottom: 4px;
 }
 
-input[type="email"],  input[type="password"], input[type="text"]{
+input[type="email"],
+input[type="password"],
+input[type="text"] {
   width: 100%;
   height: 40px;
   padding: 5px;
@@ -66,12 +70,12 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-input[type="submit"]:focus{
+input[type="submit"]:focus {
   transform: scale(0.98);
   transition: .2s;
 }
 
-.flex{
+.flex {
   display: flex;
   justify-content: space-between;
 }
@@ -126,6 +130,32 @@ input[type="submit"]:focus{
 .alert .close:hover {
   color: #000;
 }
+
+#form {
+  max-width: 400px;
+  height: min-content;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  padding: 20px 10px;
+  border-radius: 5px;
+}
+
+.reset-btn {
+
+  background-color: green;
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reset-btn:hover {
+  background-color: rgb(5, 92, 5);
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

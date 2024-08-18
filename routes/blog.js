@@ -12,7 +12,11 @@ router.get("/:id", partialMiddleware, async (req, res) => {
     post: blogs,
     isAuthenticated: res.locals.isAuthenticated,
   }
-  res.render("blog", {layout: "../views/layout/main", locals})
+  res.render("blog", {layout: "./layout/main", locals})
+})
+
+router.get("/created", partialMiddleware, (req, res) => {
+ res.json({"msg":"hello"})
 })
 
 module.exports = router
