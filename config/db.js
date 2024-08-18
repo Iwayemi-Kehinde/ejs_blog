@@ -6,10 +6,10 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true
     })
-    console.log("DB Connected")
+    console.log("DB CONNECTED")
   } catch (error) {
     console.error({ error: error.message })
-  }
+  } 
 } 
 
 module.exports = connectDB

@@ -57,11 +57,9 @@ div.l {
 }
 
 .tag {
-  background: #007BFF;
-  color: #fff;
+  color: #333;
   padding: 0.3rem 0.6rem;
   margin-right: 0.5rem;
-  border-radius: 4px;
   font-size: 0.8rem;
 }
 

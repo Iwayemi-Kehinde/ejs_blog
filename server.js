@@ -40,6 +40,7 @@ app.use(expressEjsLayouts)
 app.use(express.urlencoded({extended: true}))
 
 app.use(express.static("public"))
+app.use("/uploads", express.static("uploads"))
 app.use("/users", require("./routes/admin"))
 app.use("/", require("./routes/main"))
 app.use("/post", require("./routes/blog"))

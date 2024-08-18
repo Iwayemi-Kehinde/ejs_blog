@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get("/:id", partialMiddleware, async (req, res) => {
   const { id } = req.params
-  const blogs = await Blog.findById(id)
+  const blogs = await Blog.findById(id).populate("author", "username email")
   const locals = {
     title: blogs.title,
     post: blogs,

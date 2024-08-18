@@ -100,6 +100,9 @@ footer {
   background: #333;
   color: #fff;
   margin-top: 2rem;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
 
 
@@ -116,7 +119,7 @@ footer {
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
 }
 
-.modal-content {
+.model-content {
   background-color: white;
   padding: 20px;
   border-radius: 10px;

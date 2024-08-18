@@ -4,8 +4,8 @@
     <h1 class="post-title bungee-tint-regular">
       <%= locals.post.title %>
     </h1>
-    <img src="<%= 'https://cdn.pixabay.com/photo/2024/01/29/22/47/ai-generated-8540915_640.jpg' %>" alt="<%= locals.post.title %>" class="cover-image">
-    <p class="post-author">By <%= locals.post.author.name %> | <%= new Date(locals.post.createdAt).toLocaleDateString() %>
+    <img src="../uploads/<%= locals.post.coverImage %>" alt="img" class="cover-image">
+    <p class="post-author">By <%= locals.post.author.username %> | <%= new Date(locals.post.createdAt).toLocaleDateString() %>
     </p>
     <div class="post-content">
       <%= locals.post.content %>
@@ -15,16 +15,16 @@
       <h3>Tags:</h3>
       <% locals.post.tags.forEach(tag=> { %>
         <span class="tag">
-          <%= tag %>
+          #<%= tag %>
         </span>
         <% }) %>
     </div>
 
     <div class="post-stats">
-      <span>
+      <span style="font-weight: bold; font-size: 16px;">
         <%= locals.post.views %> views
       </span> |
-      <span>
+      <span style="font-weight: bold; font-size: 16px;">
         <%= locals.post.likes.length %> likes
       </span>
     </div>
@@ -32,19 +32,21 @@
     <div class="comments-section">
       <h3>Comments (<%= locals.post.comments.length %>)</h3>
       <ul>
-        <% locals.post.comments.forEach(comment=> { %>
+        <% locals.post.comments.forEach(comment => { %>
           <li>
             <strong>
-              <%= "Kehinde" %>:
+              <%= comment.user.username %>: <!-- Display the commenter's username -->
             </strong>
-            <%= locals.comment %>
-              <br><span class="comment-date">
-                <%= "Today" %>
-              </span>
+            <%= comment.comment %> <!-- Display the comment content -->
+            <br />
+            <span class="comment-date">
+              <%= comment.createdAt.toDateString() %> <!-- Display the date the comment was created -->
+            </span>
           </li>
-          <% }) %>
+        <% }) %>
       </ul>
     </div>
+    
   </div>
 </div>
 

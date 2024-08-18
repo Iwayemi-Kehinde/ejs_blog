@@ -1,18 +1,18 @@
 const express = require("express")
 const router = express.Router()
 const isAuth = require("../middlewares/partialsMiddleware.js")
-const Post = require("../models/Post.js")
 const authMiddleware = require("../middlewares/authMiddleware.js")
-const multer = require("multer")
 const Blog = require("../models/Post.js")
+const upload = require("../config/upload.js")
 
 router.get("/", isAuth, async (req, res) => {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 })
+    const posts = await Blog.find().sort({ createdAt: -1 }).populate("author", "username email").exec()
     const locals = {
       title: "Home",
       isAuthenticated: res.locals.isAuthenticated
     }
+    console.log(posts)
     res.render("home", { layout: "../views/layout/main", locals, posts })
   } catch (error) {
     console.log({ error })
@@ -20,36 +20,35 @@ router.get("/", isAuth, async (req, res) => {
   }
 })
 
-const uploads = multer({ dest: "uploads/" })
 
 
-
-router.get("/create-post", isAuth, authMiddleware, async (req, res) => {
+router.get("/create-post",authMiddleware, isAuth, async (req, res) => {
   const locals = {
     title: "Create blog post",
     isAuthenticated: res.locals.isAuthenticated,
-    userId: req.userId
   }
   res.render("createpost", { layout: "../views/layout/main", locals })
 })
 
-router.post("/create-post", uploads.single("coverImage"), async (req, res) => {
+
+router.post("/create-post", authMiddleware,upload.single("coverImage"), async (req, res) => {
   try {
     const { title, content, tags, category, isPublished } = req.body
-    const author = "req.userId"
+    const author = req.userId
     const coverImage = req.file ? req.filename : ""
-
+    console.log(coverImage)
     const blog = new Blog({
       title,
       content,
       author,
-      tags: tags.split(','),
+      tags,
       category,
       coverImage,
       isPublished: isPublished ? true : false
     });
 
     await blog.save()
+    console.log(blog)
     req.flash("success_msg", "Successfully created the blog")
     res.redirect("/users/profile")
   } catch (error) {
