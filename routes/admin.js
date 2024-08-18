@@ -135,15 +135,14 @@ router.post("/forgot", async (req, res) => {
       req.flash("error_msg", "Email not found")
       return res.redirect("/users/forgot")
     }
-    user.generatePasswordReset()
     await User.save()
-    const resetLink = `http://${req.headers.host}/reset/${user.resetPasswordToken}`
+    const resetLink = `http://${req.headers.host}/reset/${User.resetPasswordToken}`
 
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-        user: 'iwayemikehinde1@gmail.com',
-        pass: 'your-email-password'
+        user: process.env.TRANSPORTER_EMAIL,
+        pass: process.env.TRANSPORTER_PASSWORD
       }
     });
 

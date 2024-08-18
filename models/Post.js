@@ -51,3 +51,11 @@ const blogSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Blog', blogSchema);
+
+/**
+ *  OTHER USER WILL COMMENT
+ * 
+ * 
+ * 
+ * 
+ */

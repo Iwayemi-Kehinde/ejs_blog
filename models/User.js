@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
   resetPasswordExpires: {
     type: Date
   }
-}, { timestamp: true })
+}, { timestamps: true })
 
 const User = mongoose.model("User", UserSchema)
 

@@ -9,11 +9,19 @@ const connectDB = require("./config/db.js")
 const app = express()
 const PORT = process.env.PORT || 3000
 
+//Mongodb connect
+connectDB()
+
+
+//EJS SETUP
+app.set("layout", "./views/layout/main")
+app.set("view engine", "ejs")
+
+//Middlewares
 app.use((req, res, next) => {
   console.log(req.method, req.originalUrl)
   next()
 })
-connectDB()
 app.use(cookieParser())
 app.use(express.json());
 app.use(session({
@@ -30,8 +38,7 @@ app.use((req, res, next) => {
 })
 app.use(expressEjsLayouts)
 app.use(express.urlencoded({extended: true}))
-app.set("layout", "./views/layout/main")
-app.set("view engine", "ejs")
+
 app.use(express.static("public"))
 app.use("/users", require("./routes/admin"))
 app.use("/", require("./routes/main"))
