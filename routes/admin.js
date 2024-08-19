@@ -1,6 +1,7 @@
 const express = require("express")
 const jwt = require("jsonwebtoken")
 const user = require("../models/User.js")
+const blog = require("../models/Post.js")
 const authMiddleWare = require("../middlewares/authMiddleware.js")
 const isAuth = require("../middlewares/partialsMiddleware.js")
 const bcrypt = require("bcrypt")
@@ -101,10 +102,12 @@ router.get("/profile", authMiddleWare, isAuth, async (req, res) => {
       req.flash('error_msg', 'User not found');
       return res.redirect('/users/login');
     }
+    const BlogCreated = await blog.find({author:{_id: req.userId}})
     const locals = {
       title: "Profile page",
       isAuthenticated: res.locals.isAuthenticated,
-      User
+      User,
+      BlogCreated
     }
     res.render("profile", { layout: "../views/layout/profileLayout", locals })
   } catch (error) {

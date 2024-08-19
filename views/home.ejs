@@ -1,31 +1,32 @@
 <%- include('./partials/navbar') %>
-<main>
-  <div class="post-list">
-    <% if (posts && posts.length > 0) { %>
-      <% posts.forEach(post => { %>
-        <div class="post-preview">
-          <img src="../uploads/<%= post.coverImage ? post.coverImage : 'default.png' %>" alt="img" class="post-thumbnail">
-          <h2 class="postt-title" style="font-size: 18px;">
-            <%= post.title ? post.title : "No title" %>
-          </h2>
-          <p class="post-author">
-            By <%= post.author && post.author.username ? post.author.username : "Anonymous" %> | 
-            <%= new Date(post.createdAt).toLocaleDateString() %>
-            |
-            <%= post.author && post.author.email ? post.author.email : "Email Not available" %>
-          </p>
-          <p class="post-excerpt">
-            <%= post.content ? post.content.substring(0, 150) : "No content for this Post" %>...
-          </p>
-          <a href="/post/<%= post._id %>" class="read-more">Read More</a>
-        </div>
-      <% }) %>
-    <% } else { %>
-      <p>No posts available.</p>
-    <% } %>
-  </div>
-</main>
+  <main class="home">
+    <div class="post-list">
+      <% if (posts && posts.length> 0) { %>
+        <% posts.forEach(post=> { %>
+          <div class="post-preview">
+            <img src="../uploads/<%= post.coverImage ? post.coverImage : '1724010871621.jpg' %>" alt="img"
+              class="post-thumbnail">
+            <h2>
+              <%= post.title ? post.title : "No title" %>
+            </h2>
+            <p class="post-author">
+              By <%= post.author && post.author.username ? post.author.username : "Anonymous" %> |
+                <%= new Date(post.createdAt).toLocaleDateString() %>
+                  |
+                  <%= post.author && post.author.email ? post.author.email : "Email Not available" %>
+            </p>
+            <p class="post-excerpt">
+              <%= post.content ? post.content.substring(0, 150) : "No content for this Post" %>...
+            </p>
+            <a href="/post/<%= post._id %>" class="read-more">Read More</a>
+          </div>
+          <% }) %>
+            <% } else { %>
+              <p style="font-size: 20px; font-weight: bold;">No posts available.</p>
+              <% } %>
+    </div>
+  </main>
 
-<footer>
-  <p>&copy; <%= new Date().getFullYear() %> MyBlog. All rights reserved.</p>
-</footer>
+  <%- include('./partials/footer') %>
+
+

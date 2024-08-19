@@ -1,21 +1,22 @@
 <%-include("./partials/navbar.ejs")%>
-<div class="l">
   <div class="post-container">
-    <h1 class="post-title bungee-tint-regular">
+    <h1 class="post-title">
       <%= locals.post.title %>
     </h1>
+    <p class="border-bottom-full-width"></p>
     <img src="../uploads/<%= locals.post.coverImage %>" alt="img" class="cover-image">
-    <p class="post-author">By <%= locals.post.author.username %> | <%= new Date(locals.post.createdAt).toLocaleDateString() %>
+    <p class="post-author">By <%= locals.post.author.username %> | <%= new
+          Date(locals.post.createdAt).toLocaleDateString() %>
     </p>
     <div class="post-content">
       <%= locals.post.content %>
     </div>
 
     <div class="post-tags">
-      <h3>Tags:</h3>
+      <span style="font-size: 19px; font-weight: bold;">Tags:</span>
       <% locals.post.tags.forEach(tag=> { %>
         <span class="tag">
-          #<%= tag %>
+          <%= "#" + tag %>
         </span>
         <% }) %>
     </div>
@@ -32,24 +33,20 @@
     <div class="comments-section">
       <h3>Comments (<%= locals.post.comments.length %>)</h3>
       <ul>
-        <% locals.post.comments.forEach(comment => { %>
+        <% locals.post.comments.forEach(comment=> { %>
           <li>
             <strong>
               <%= comment.user.username %>: <!-- Display the commenter's username -->
             </strong>
             <%= comment.comment %> <!-- Display the comment content -->
-            <br />
-            <span class="comment-date">
-              <%= comment.createdAt.toDateString() %> <!-- Display the date the comment was created -->
-            </span>
+              <br />
+              <span class="comment-date">
+                <%= comment.createdAt.toDateString() %> <!-- Display the date the comment was created -->
+              </span>
           </li>
-        <% }) %>
+          <% }) %>
       </ul>
     </div>
-    
   </div>
-</div>
 
-<footer>
-  <p>&copy; <%= new Date().getFullYear() %> MyBlog. All rights reserved.</p>
-</footer>
+<%-include("./partials/footer.ejs")%>

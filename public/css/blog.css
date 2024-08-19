@@ -8,15 +8,13 @@ body {
   color: #333;
 }
 
-div.l {
+.post-container {
   margin: 2rem auto;
   padding: 0 1rem;
   padding: 100px 2rem;
-  max-width: 900px;
-}
-
-.post-container {
   text-align: left;
+  max-width: 960px;
+  width: 100%;
 }
 
 
@@ -28,17 +26,23 @@ div.l {
   border-radius: 3px;
 }
 
+.border-bottom-full-width{
+  border-bottom: 1px solid #d1d1d1;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
 .post-title {
-  font-family: "Bungee Tint", sans-serif;
-  font-size: 3rem;
+  font-size: 2.2rem;
   margin-bottom: 1rem;
-  color: #333;
   font-weight: 900;
 }
 
 .post-author {
   font-size: 0.9rem;
   color: #777;
+  font-weight: bolder;
   margin-bottom: 1.5rem;
 }
 

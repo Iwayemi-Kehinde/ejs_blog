@@ -48,7 +48,6 @@ router.post("/create-post", authMiddleware,upload.single("coverImage"), async (r
     });
 
     await blog.save()
-    console.log(blog)
     req.flash("success_msg", "Successfully created the blog")
     res.redirect("/users/profile")
   } catch (error) {
@@ -56,7 +55,7 @@ router.post("/create-post", authMiddleware,upload.single("coverImage"), async (r
     req.flash("error_msg", "An error occured")
     res.redirect("/create-post")
   }
-
 })
+
 
 module.exports = router

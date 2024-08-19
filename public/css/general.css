@@ -41,7 +41,7 @@ ul .second-section li{
 }
 
 
-main {
+main.home {
   max-width: 1100px;
   margin: 0 auto;
   padding: 170px 1rem;
@@ -69,11 +69,11 @@ main {
 }
 
 .post-preview h2 {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   margin-bottom: 0.5rem;
 }
 
-.post-author {
+.post-author {  
   font-size: 0.9rem;
   color: #777;
   margin-bottom: 1rem;
@@ -99,10 +99,7 @@ footer {
   padding: 1rem;
   background: #333;
   color: #fff;
-  margin-top: 2rem;
-  position: absolute;
   width: 100%;
-  bottom: 0;
 }
 
 

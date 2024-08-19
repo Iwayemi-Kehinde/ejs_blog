@@ -10,7 +10,7 @@
       <%= locals.User.email %>
     </p>
     <p><strong>Joined on:</strong>
-      Today
+      <%=locals.User.createdAt.toDateString()%>
     </p>
   </div>
   <div class="profile-actions">
