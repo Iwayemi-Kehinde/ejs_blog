@@ -1,59 +1,98 @@
 <%- include('./partials/navbar') %>
 
-
-<div class="profile-container">
-  <div class="profile-header">
-    <h1>Welcome, <%= locals.User.username %>!</h1>
-  </div>
-  <div class="profile-details">
-    <p><strong>Email:</strong>
-      <%= locals.User.email %>
-    </p>
-    <p><strong>Joined on:</strong>
-      <%=locals.User.createdAt.toDateString()%>
-    </p>
-  </div>
-  <div class="profile-actions">
-    <a href="/edit-profile" class="btn">Edit Profile</a>
-    <a href="/create-post" class="btn btn-create">Create Post</a>
-    <button id="openModalBtn" class="btn btn-logout">Logout</button>
-  </div>
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <h2>Are you sure you want to logout</h2>
-      <div class="option">
-        <a href="/users/logout"
-          style="margin-right: 10px; background: rgb(172, 0, 0); color: white;padding: 6px; border-radius: 4px;">Yes</a>
-        <button
-          style="cursor:pointer; border:none;background-color: rgb(9, 138, 30); color: white;padding: 6px; border-radius: 4px;"
-          id="closeModalBtn">No</button>
+  <main class="profile">
+    <div class="profile-container">
+      <div class="profile-header">
+        <h1>
+          Welcome!
+          <br>
+          <%= locals.User.username %>
+        </h1>
       </div>
+      <div class="profile-details">
+        <p><strong>Email:</strong>
+          <%= locals.User.email %>
+        </p>
+        <p><strong>Joined on:</strong>
+          <%=locals.User.createdAt.toDateString()%>
+        </p>
+      </div>
+      <div class="profile-actions">
+        <a href="/edit-profile" class="btn">Edit Profile</a>
+        <a href="/create-post" class="btn btn-create">Create Post</a>
+        <button id="openModalBtn" class="btn btn-logout">Logout</button>
+      </div>
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <h2>Are you sure you want to logout</h2>
+          <div class="option">
+            <a href="/users/logout"
+              style="margin-right: 10px; background: rgb(172, 0, 0); color: white;padding: 6px; border-radius: 4px;">Yes</a>
+            <button
+              style="cursor:pointer; border:none;background-color: rgb(9, 138, 30); color: white;padding: 6px; border-radius: 4px;"
+              id="closeModalBtn">No</button>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </div>
 
-</div>
+    <div style="border: 1px solid rgb(206, 203, 203); width: 1px; min-height: 100vh;"></div>
 
-<script>
+    <div class="my-blogs">
+      <h2 class="my-blog">My blogs</h2>
+      <%if (locals.BlogCreated) {%>
+        <div class="blog-flex">
 
-  document.getElementById('openModalBtn').onclick = function () {
-    const modal = document.getElementById('modal');
-    modal.style.display = 'flex';
-    setTimeout(() => {
-      modal.classList.add('show');
-    }, 10);
-  };
+          <%locals.BlogCreated.forEach((blog)=> {%>
+            <div class="post-preview">
+              <img class="server-img" src="../uploads/<%= blog.coverImage ? blog.coverImage : 'default.jpg' %>"
+                alt="img" class="post-thumbnail">
+              <h2>
+                <%= blog.title ? blog.title : "No title" %>
+              </h2>
+              <p class="post-excerpt">
+                <%= blog.content ? blog.content.substring(0, 150) : "No content for this Post" %>...
+              </p>
+              <div style="display: flex; gap: 20px; align-items: center;">
+                <a href="/edit-blog/<%=blog._id%>" style="padding: 10px 15px; background-color: green; border: none; color: white; border-radius: 3px; cursor: pointer;" id="open-option">OPTIONS</a>
+                <a href="/post/<%= blog._id %>" class="read-more">Read More</a>
+                <!-- <a href="/post/edit/<%=blog._id%>" class="read-more" style="color: rgb(14, 184, 14);">Edit</a>
+                <a href="/post/delete/<%=blog._id%>" style="color: red;" class="read-more">Delete</a> -->
+              </div>
+            </div>
+            <%})%>
+              <%} else { %>
+                <p style="font-size: 20px; font-weight: bold;">No posts available.</p>
+                <% } %>
+        </div>
+    </div>
+  </main>
 
-  document.getElementById('closeModalBtn').onclick = function () {
-    const modal = document.getElementById('modal');
+
+
+
+  <script>
+
+    document.getElementById('openModalBtn').onclick = function () {
+      const modal = document.getElementById('modal');
+      modal.style.display = 'flex';
+      setTimeout(() => {
+        modal.classList.add('show');
+      }, 10);
+    };
+
+    document.getElementById('closeModalBtn').onclick = function () {
+      const modal = document.getElementById('modal');
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 400);
+    };
+
+
     modal.classList.remove('show');
-    setTimeout(() => {
-      modal.style.display = 'none';
-    }, 400);
-  };
+    modal.style.display = 'none';
 
 
-  modal.classList.remove('show');
-  modal.style.display = 'none';
-
-
-</script>
+  </script>

@@ -5,6 +5,7 @@ const authMiddleware = require("../middlewares/authMiddleware.js")
 const Blog = require("../models/Post.js")
 const upload = require("../config/upload.js")
 
+
 router.get("/", isAuth, async (req, res) => {
   try {
     const posts = await Blog.find().sort({ createdAt: -1 }).populate("author", "username email").exec()
@@ -12,7 +13,6 @@ router.get("/", isAuth, async (req, res) => {
       title: "Home",
       isAuthenticated: res.locals.isAuthenticated
     }
-    console.log(posts)
     res.render("home", { layout: "../views/layout/main", locals, posts })
   } catch (error) {
     console.log({ error })
@@ -35,7 +35,7 @@ router.post("/create-post", authMiddleware,upload.single("coverImage"), async (r
   try {
     const { title, content, tags, category, isPublished } = req.body
     const author = req.userId
-    const coverImage = req.file ? req.filename : ""
+    const coverImage = req.file ? req.file.filename : ""
     console.log(coverImage)
     const blog = new Blog({
       title,
@@ -56,6 +56,27 @@ router.post("/create-post", authMiddleware,upload.single("coverImage"), async (r
     res.redirect("/create-post")
   }
 })
+
+
+router.get("/edit-blog/:id",isAuth, async (req, res) => {
+  try {
+    const {id} = req.params
+    const data = await Blog.find({_id:id})
+    const locals = {
+      title: "Edit blog",
+      isAuthenticated: res.locals.isAuthenticated,
+      data
+    }
+    res.render("edit-blog", { layout: "../views/layout/main", locals })
+  } catch(error) {
+    console.log({ error: error.message })
+    req.flash("error_msg", "An error occured")
+    res.redirect("/users/profile")
+  }
+})
+
+
+
 
 
 module.exports = router

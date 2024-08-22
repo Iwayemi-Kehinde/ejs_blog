@@ -1,0 +1,110 @@
+<%- include('./partials/navbar') %>
+
+
+
+
+<div class="container">
+  <h1 class="my-4">Edit Blog Post</h1>
+  <form action="/create-post" method="POST" enctype="multipart/form-data">
+    <!-- Title -->
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" name="title" required value="<%=locals.data[0].title%>">
+    </div>
+
+    <!-- Content -->
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea class="form-control" id="content" name="content" rows="8" required value="<%=locals.data[0].content%>" style="padding: 10px;"></textarea>
+    </div>
+
+    <input type="hidden" name="author" value="<%= locals.userId %>" >
+
+    <div class="form-group">
+      <label for="tags">Tags (comma-separated)</label>
+      <input type="text" class="form-control" id="tags" name="tags" placeholder="e.g., JavaScript, MongoDB, Node.js" >
+    </div>
+
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select class="form-control" id="category" name="category" required value="<%=locals.data[0].category%>">
+        <option value="Technology">Technology</option>
+        <option value="Health">Health</option>
+        <option value="Lifestyle">Lifestyle</option>
+        <option value="Education">Education</option>
+        <option value="Business">Business</option>
+      </select>
+    </div>
+
+    <!-- Cover Image -->
+     
+    <div class="form-group" style=" width: 250px;">
+      <label for="coverImage">Cover Image (optional)</label>
+      <input type="file" class="form-control-file" id="coverImage" name="coverImage" value="<%=locals.data[0].coverImage%>">
+    </div>
+
+    <!-- Is Published -->
+    <div class="form-check" style="margin-top: -8px; margin-bottom: 10px;">
+      <input style="margin-right: 5px;" type="checkbox" class="form-check-input" id="isPublished" name="isPublished">
+      <label class="form-check-label" for="isPublished">Publish Immediately?</label>
+    </div>
+    
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Create Blog Post</button>
+  </form>
+</div>
+
+
+
+
+
+<style>
+  .my-4 {
+    font-size: 35px;
+    font-weight: 800;
+    margin: 20px 0 10px;
+  }
+  .container{
+    padding-top: 100px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-bottom: 30px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  form{
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+  }
+
+  select{
+    padding: 10px;
+  }
+
+  button {
+    width: 150px;
+    border: none;
+    height: 46px;
+    background-color: rgb(76, 76, 228);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: .6s;
+  }
+  button:active{
+    background-color: rgb(20, 20, 201);
+  }
+</style>
+
+
+
+
+<script>
+  console.log(document.querySelector("textarea"))
+</script>

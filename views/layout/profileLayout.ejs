@@ -11,5 +11,47 @@
   <main>
     <%- body %>
   </main>
+
+  <% if (error_msg && error_msg.length> 0) { %>
+    <div class="alert alert-danger" id="error">
+      <div>
+        <% error_msg.forEach(function(msg) { %>
+          <p>
+            <%= msg %>
+          </p>
+          <% }); %>
+      </div>
+      <button class="close" onclick="this.parentElement.style.display='none'">&times;</button>
+    </div>
+    <% } %>
+
+
+      <% if (success_msg.length> 0) { %>
+        <div class="alert alert-success" id="success">
+          <div>
+            <% success_msg.forEach(function(msg) { %>
+              <p>
+                <%= msg %>
+              </p>
+              <% }); %>
+          </div>
+          <button class="close" onclick="this.parentElement.style.display='none'">&times;</button>
+        </div>
+        <% } %>
 </body>
+<script>
+  const success_element = document.getElementById("success")
+  if(success_element) {
+    setTimeout(() => {
+      success_element.remove()
+    }, 5000);
+  }
+
+  const error_element = document.getElementById("error")
+  if(error_element) {
+    setTimeout(() => {
+      error.remove()
+    }, 5000);
+  }
+</script>
 </html>

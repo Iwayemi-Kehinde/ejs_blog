@@ -4,10 +4,10 @@
       <% if (posts && posts.length> 0) { %>
         <% posts.forEach(post=> { %>
           <div class="post-preview">
-            <img src="../uploads/<%= post.coverImage ? post.coverImage : '1724010871621.jpg' %>" alt="img"
+            <img src="../uploads/<%= post.coverImage ? post.coverImage : 'default.jpg' %>" alt="img"
               class="post-thumbnail">
             <h2>
-              <%= post.title ? post.title : "No title" %>
+              <%= post.title ?   post.title : "No title" %>
             </h2>
             <p class="post-author">
               By <%= post.author && post.author.username ? post.author.username : "Anonymous" %> |
@@ -26,6 +26,7 @@
               <% } %>
     </div>
   </main>
+
 
   <%- include('./partials/footer') %>
 

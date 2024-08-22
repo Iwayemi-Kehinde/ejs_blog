@@ -5,6 +5,7 @@ const session = require('express-session');
 const flash = require("connect-flash")
 const cookieParser = require("cookie-parser")
 const connectDB = require("./config/db.js")
+const Blog = require("./models/Post.js")
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -44,6 +45,18 @@ app.use("/uploads", express.static("uploads"))
 app.use("/users", require("./routes/admin"))
 app.use("/", require("./routes/main"))
 app.use("/post", require("./routes/blog"))
+
+
+app.delete("/post/delete/:id", async (req, res) => {
+  try{
+    const {id} = req.params
+    await Blog.findByIdAndDelete(id)
+    req.flash("success_msg", "DELETED SUCCESSFULLY")
+  } catch(error) {
+    console.log({error: error.message})
+    res.redirect("/users/profile")
+  }
+  })
 
 
 app.listen(PORT, () => {

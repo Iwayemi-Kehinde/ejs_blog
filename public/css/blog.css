@@ -101,3 +101,57 @@ footer {
   color: #fff;
   margin-top: 2rem;
 }
+
+
+
+
+/* General Styles for Alert Messages */
+.alert {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  min-width: 300px;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Styles for Danger Alerts */
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Styles for Success Alerts */
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Styles for Alert Message Text */
+.alert p {
+  margin: 0;
+}
+
+/* Close Button Styles */
+.alert .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Close Button Hover Effect */
+.alert .close:hover {
+  color: #000;
+}

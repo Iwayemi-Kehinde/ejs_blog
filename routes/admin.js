@@ -109,6 +109,7 @@ router.get("/profile", authMiddleWare, isAuth, async (req, res) => {
       User,
       BlogCreated
     }
+    // console.log(BlogCreated)
     res.render("profile", { layout: "../views/layout/profileLayout", locals })
   } catch (error) {
     console.error(error);
